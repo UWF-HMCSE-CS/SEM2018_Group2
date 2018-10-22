@@ -5,8 +5,41 @@ body {
 h1 {
     color: black;
     text-align: center;
+    font-size: 50px;
+    font-family: "Comic Sans MS";
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: black;
+    text-align: center;
+    font-size: 25px;
+    font-family: "Comic Sans MS";
+    margin-bottom: 90px;
 }
 
 p {
     font-family: "Comic Sans MS";
+}
+
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0;
+    overflow: hidden;
+    background-color: lightgrey;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+li {
+    float: left;
+}
+
+li p {
+    display:block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration:none;
 }
