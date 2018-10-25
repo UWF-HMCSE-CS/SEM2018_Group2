@@ -85,3 +85,16 @@ p {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+#posts {
+    font-family: "Comic Sans MS";
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#posts td, #posts th {
+    border: 2px solid black;
+    padding: 8px;
+}
