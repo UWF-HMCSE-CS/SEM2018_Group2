@@ -31,9 +31,126 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.get('/test', function(req, res) {
+app.get('/getMember/:player_id', function(req, res) {
+    value = req.params.player_id;
+    console.log(value);
     Table = "MEMBER";
-    player_id = "2"
+    player_id = "" + value;
+
+    var params = {
+        TableName : Table,
+        Key: {
+            "player_id": player_id,
+        }
+    };
+
+    docClient.get(params, function(err, data) {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            res.send(data);
+        }
+    });
+});
+
+app.get('/getLFM/:player_post_id', function(req, res) {
+    value = req.params.player_post_id;
+    console.log(value);
+    Table = "LFM_POST";
+    player_post_id = "" + value
+
+    var params = {
+        TableName : Table,
+        Key: {
+            "player_post_id": player_post_id,
+        }
+    };
+
+    docClient.get(params, function(err, data) {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            res.send(data);
+        }
+    });
+});
+
+app.get('/getLFG/:player_post_id', function(req, res) {
+    value = req.params.player_post_id;
+    console.log(value);
+    Table = "LFG_POST";
+    player_post_id = "" + value
+
+    var params = {
+        TableName : Table,
+        Key: {
+            "player_post_id": player_post_id,
+        }
+    };
+
+    docClient.get(params, function(err, data) {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            res.send(data);
+        }
+    });
+});
+
+app.get('/getInvite/:player_id', function(req, res) {
+    value = req.params.player_id;
+    console.log(value);
+    Table = "INVITE";
+    player_id = "" + value
+
+    var params = {
+        TableName : Table,
+        Key: {
+            "player_id": player_id,
+        }
+    };
+
+    docClient.get(params, function(err, data) {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            res.send(data);
+        }
+    });
+});
+
+app.get('/getGroup/:group_id', function(req, res) {
+    value = req.params.group_id;
+    console.log(value);
+    Table = "GROUP";
+    group_id = "" + value
+
+    var params = {
+        TableName : Table,
+        Key: {
+            "group_id": group_id,
+        }
+    };
+
+    docClient.get(params, function(err, data) {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            res.send(data);
+        }
+    });
+});
+
+app.get('/getApplication/:player_id', function(req, res) {
+    value = req.params.player_id;
+    console.log(value);
+    Table = "APPLICATION";
+    player_id = "" + value
 
     var params = {
         TableName : Table,
