@@ -1,6 +1,7 @@
 const express = require('express');
 
 let app = express();
+let postsService = require("./lib/postsService.js");
 
 // set up handlebars view engine
 let handlebars = require('express-handlebars')
@@ -16,6 +17,8 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
 	res.render('landingPage');
 });
+
+
 
 
 // 404 catch-all handler (middleware)

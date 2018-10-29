@@ -6,7 +6,7 @@ h1 {
     color: black;
     text-align: center;
     font-size: 50px;
-    font-family: "Comic Sans MS";
+    font-family: "Comic Sans MS", serif;
     margin-bottom: 15px;
 }
 
@@ -14,18 +14,35 @@ h2 {
     color: black;
     text-align: center;
     font-size: 25px;
-    font-family: "Comic Sans MS";
-    margin-bottom: 90px;
+    font-family: "Comic Sans MS", sans-serif;
+    margin-bottom: 0;
 }
 
 p {
-    font-family: "Comic Sans MS";
+    font-family: "Comic Sans MS", serif;
+}
+
+.lfmButton {
+    background-color: aliceblue;
+    border: 3px solid black;
+    color: black;
+    padding: 4px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 16px;
+    font-family: "Helvetica", serif;
+    margin-left: 1300px;
+    margin-bottom: 5px;
+    margin-top: 40px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 .searchFilterBar {
     overflow: hidden;
     background-color: lightgrey;
-    font-family: "Comic Sans MS";
+    font-family: "Comic Sans MS", serif;
     border: 3px solid black;
     border-radius: 5px;
 }
@@ -64,7 +81,7 @@ p {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
     margin-left: 220px;
 }
@@ -87,7 +104,7 @@ p {
 }
 
 #posts {
-    font-family: "Comic Sans MS";
+    font-family: "Comic Sans MS", serif;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
