@@ -10,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.4",
-    "express-handlebars": "^3.0.0",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "express-handlebars": "^3.0.0"
   }
 }

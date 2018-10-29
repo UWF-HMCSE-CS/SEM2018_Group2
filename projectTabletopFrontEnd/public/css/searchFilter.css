@@ -1,0 +1,72 @@
+.searchFilterBar {
+    position: relative;
+    margin: auto;
+    text-align: center;
+    background-color: lightgrey;
+    font-family: "Comic Sans MS", serif;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.select-drop {
+    display: inline-block;
+    position: relative;
+    color: black;
+    text-align: left;
+    text-decoration: none;
+    width: 200px;
+    margin: 5px;
+}
+
+/* Hide the original dropdown */
+.select-drop select {
+    display:none;
+}
+
+.select-selected {
+    background-color: #696;
+}
+
+/* Style the arrow */
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 22px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 28px;
+}
+
+/* Style drop down item list */
+.select-items div,.select-selected {
+  color: #000;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  height: 50px;
+  line-height: 50px;
+  width: 200px;
+  cursor: pointer;
+}
+
+.select-items {
+    position: absolute;
+    background-color: #585;
+    z-index: 10;
+}
+
+/* hide item list on close */
+.select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.select-hide {
+    display:none;
+}

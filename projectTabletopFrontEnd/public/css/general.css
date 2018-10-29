@@ -1,0 +1,23 @@
+body {
+    background-color: lightgrey;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    font-size: 50px;
+    font-family: "Comic Sans MS", serif;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: black;
+    text-align: center;
+    font-size: 25px;
+    font-family: "Comic Sans MS", sans-serif;
+    margin-bottom: 0;
+}
+
+p {
+    font-family: "Comic Sans MS", serif;
+}

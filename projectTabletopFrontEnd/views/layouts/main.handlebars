@@ -3,10 +3,113 @@
 <head>
     <title>Project Tabletop</title>
 
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/general.css" rel="stylesheet" type="text/css">
+    <link href="/css/searchFilter.css" rel="stylesheet" type="text/css">
+    <link href="/css/buttons.css" rel="stylesheet" type="text/css">
+    <link href="/css/postsTable.css" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
+
+
 <body>
+    <h1>Project Tabletop</h1>
+    
+    <h2>Tabletop Roleplayers' Group-finding Service</h2>
+    
+    <div class="lfmBox">
+        <a class="lfmButton" href="#postCreation">Create LFM Post</a>
+    </div>
+    
+    <div id="postCreation" class="overlay">
+        <div class="postCreation">
+            <h2>LFM Post Creation</h2>
+            
+            <div class="content">
+                <form method="post" action="/createPost">
+                    <div class="input">
+                        <!-- Game Type -->
+                        
+                        
+                        <!-- Description -->
+                        
+                        
+                        <!-- Days planned to meet (schedule) -->
+                        
+                        
+                        <!-- If DM Required -->
+                        
+                        
+                        <!-- Character Levels -->
+                        
+                        
+                        <!-- Homebrew or Prebuilt -->
+                        
+                        
+                        <!-- Novice Friendly -->
+                        
+                        
+                        <!-- Number of Players Needed -->
+                        
+                        
+                    </div>
+                    <div class="moduleButtons">
+                        <a class="lfmSubmit" href="#">Submit</a>
+                        <a class="lfmCancel" href="#">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="searchFilterBar">
+        <form method="get" action="/results">
+            
+            <div class="select-drop">
+                <select name="gameType">
+                    <option value="0">Select Game Type:</option>
+                    <option value="dnd">Dungeons and Dragons</option>
+                    <option value="pathfinder">Pathfinder</option>
+                    <option value="cthulhu">Call of Cthulhu</option>
+                    <option value="gurps">GURPS</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="select-drop">
+                <select name="region">
+                    <option value="0">Select Distance:</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            
+            <div class="select-drop">
+                <select name="sessionType">
+                    <option value="0">Select Post Type:</option>
+                    <option value="lfm">Looking for Members</option>
+                    <option value="lfg">Looking for Group</option>
+                </select>
+            </div>
+            
+            <div class="select-drop">
+                <select name="displayPosts">
+                    <option value="0">Select Post Count:</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            
+        </form>
+    </div>
+    
     {{{body}}}
 </body>
+
+<script src="/css/dropdown.js"></script>
 </html>

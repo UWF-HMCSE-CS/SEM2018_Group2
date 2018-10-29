@@ -15,11 +15,17 @@ app.use(express.static(__dirname + '/public'));
 
 // Renders the landing page
 app.get('/', function(req, res) {
-	res.render('landingPage');
+	
+	res.render('lfmPosts', {
+			post: postsService.getLfmPostsData()
+		}
+	);
 });
 
-
-
+app.post('/createPost', function(req, res) {
+	
+	res.redirect('/');
+}); 
 
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
