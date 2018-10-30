@@ -2,6 +2,8 @@ const express = require('express');
 
 let app = express();
 let postsService = require("./lib/postsService.js");
+let currentFilters = {};
+let postList = [];
 
 // set up handlebars view engine
 let handlebars = require('express-handlebars')
@@ -13,16 +15,29 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
 
+
 // Renders the landing page
 app.get('/', function(req, res) {
 	
-	res.render('lfmPosts', {
-			post: postsService.getLfmPostsData()
-		}
-	);
+	res.render('layouts/lfmPosts', { post: postList , filters: currentFilters});
 });
 
+// sends search request to backend, redirects to landing page for display
+app.get('/results', function(req, res) {
+	currentFilters = req.query;
+	console.log(currentFilters);
+	
+	postList = postsService.getLfmPostsData();
+	// TODO request search data from backend
+	
+	
+	res.redirect('/');
+});
+
+// sends post request to backend, redirects to landing page when done
 app.post('/createPost', function(req, res) {
+	
+	// TODO send new post data to backend
 	
 	res.redirect('/');
 }); 

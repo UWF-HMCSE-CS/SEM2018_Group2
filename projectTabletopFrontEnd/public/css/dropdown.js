@@ -1,74 +1,91 @@
+/* 
+ * V 0.2
+ * 
+ * Code based on snippet from
+ * https://www.w3schools.com/howto/howto_custom_select.asp
+ * modified for clarity and conformity
+ * 
+ * This script replaces a <select> tag with a <div> of the currently selected item.
+ * The original <select> is hidden in css
+ * Different styles can now be applied to the drop menu, and each list of items
+ */
 
 
-var x, i, j, selElmnt, a, b, c;
-/*look for any elements with the class "select-drop":*/
-x = document.getElementsByClassName("select-drop");
-for (i = 0; i < x.length; i++) {
-  selElmnt = x[i].getElementsByTagName("select")[0];
-  /*for each element, create a new DIV that will act as the selected item:*/
-  a = document.createElement("DIV");
-  a.setAttribute("class", "select-selected");
-  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-  x[i].appendChild(a);
-  /*for each element, create a new DIV that will contain the option list:*/
-  b = document.createElement("DIV");
-  b.setAttribute("class", "select-items select-hide");
-  for (j = 1; j < selElmnt.length; j++) {
-    /*for each option in the original select element,
-    create a new DIV that will act as an option item:*/
-    c = document.createElement("DIV");
-    c.innerHTML = selElmnt.options[j].innerHTML;
-    c.addEventListener("click", function(e) {
-        /*when an item is clicked, update the original select box,
-        and the selected item:*/
-        var y, i, k, s, h;
-        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-        h = this.parentNode.previousSibling;
-        for (i = 0; i < s.length; i++) {
-          if (s.options[i].innerHTML == this.innerHTML) {
-            s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
-            y = this.parentNode.getElementsByClassName("same-as-selected");
-            for (k = 0; k < y.length; k++) {
-              y[k].removeAttribute("class");
+/* look for any elements with the class "select-div" */
+let selectList = document.getElementsByClassName("select-div");
+
+/* for each <div>, do all the things */
+for (let i = 0; i < selectList.length; i++) {
+    /* find the <select> element and hide it*/
+    let selectElement = selectList[i].getElementsByTagName("select")[0];
+    selectElement.setAttribute("class", "hide-element");
+
+    /* create a new <div> that will act as this <select> element */
+    let currentSelection = document.createElement("DIV");
+    currentSelection.setAttribute("class", "select-current");
+    currentSelection.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
+    selectList[i].appendChild(currentSelection);
+
+    /* create a new <div> that will contain the option list */
+    let optionList = document.createElement("DIV");
+    optionList.setAttribute("class", "option-list hide-element");
+    
+    /* for each <option>, create a new <div> that will act as this <option> element */
+    for (let j = 0; j < selectElement.length; j++) {
+        let optionItem = document.createElement("DIV");
+        optionItem.innerHTML = selectElement.options[j].innerHTML;
+        
+        /* when an item is clicked, update the original select box and the selected item */
+        optionItem.addEventListener("click", function(e) {
+            /* copy the clicked item (this) to the <select>'s replacement <div> */
+            currentSelection.innerHTML = this.innerHTML;
+            /* search through each option to find the clicked item (this) */
+            for (let k = 0; k < selectElement.length; k++) {
+                if (selectElement.options[k].innerHTML == this.innerHTML) {
+                    /* set the clicked index to the actual <select> field */
+                    selectElement.selectedIndex = k;
+                    break;
+                }
             }
-            this.setAttribute("class", "same-as-selected");
-            break;
-          }
-        }
-        h.click();
+            /* remove the tags from the previous option add to the clicked item (this) */
+            for (let option of optionList.getElementsByClassName("option-current")) {
+                option.removeAttribute("class");
+            }
+            this.setAttribute("class", "option-current");
+            currentSelection.click();
+        });
+        optionList.appendChild(optionItem);
+    }
+    selectList[i].appendChild(optionList);
+    
+    /* when clicked, close any other select boxes, and open/close the current select box */
+    currentSelection.addEventListener("click", function(e) {
+        e.stopPropagation();
+        closeAllSelect(this);
+        this.nextSibling.classList.toggle("hide-element");
+        this.classList.toggle("active");
     });
-    b.appendChild(c);
-  }
-  x[i].appendChild(b);
-  a.addEventListener("click", function(e) {
-      /*when the select box is clicked, close any other select boxes,
-      and open/close the current select box:*/
-      e.stopPropagation();
-      closeAllSelect(this);
-      this.nextSibling.classList.toggle("select-hide");
-      this.classList.toggle("select-arrow-active");
-  });
 }
+
+/* close all select boxes in the document, except the current select box */
 function closeAllSelect(elmnt) {
-  /*a function that will close all select boxes in the document,
-  except the current select box:*/
-  var x, y, i, arrNo = [];
-  x = document.getElementsByClassName("select-items");
-  y = document.getElementsByClassName("select-selected");
-  for (i = 0; i < y.length; i++) {
-    if (elmnt == y[i]) {
-      arrNo.push(i)
-    } else {
-      y[i].classList.remove("select-arrow-active");
+    var x, y, arrNo = [];
+    x = document.getElementsByClassName("option-list");
+    y = document.getElementsByClassName("select-current");
+    for (let i = 0; i < y.length; i++) {
+        if (elmnt == y[i]) {
+            arrNo.push(i);
+        }
+        else {
+            y[i].classList.remove("active");
+        }
     }
-  }
-  for (i = 0; i < x.length; i++) {
-    if (arrNo.indexOf(i)) {
-      x[i].classList.add("select-hide");
+    for (let i = 0; i < x.length; i++) {
+        if (arrNo.indexOf(i)) {
+            x[i].classList.add("hide-element");
+        }
     }
-  }
 }
-/*if the user clicks anywhere outside the select box,
-then close all select boxes:*/
+
+/* if the user clicks anywhere outside the select box, then close all select boxes */
 document.addEventListener("click", closeAllSelect);

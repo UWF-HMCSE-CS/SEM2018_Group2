@@ -1,3 +1,7 @@
+.hide-element {
+    display:none;
+}
+
 .searchFilterBar {
     position: relative;
     margin: auto;
@@ -9,64 +13,77 @@
     padding: 5px;
 }
 
-.select-drop {
+.select-div {
     display: inline-block;
     position: relative;
     color: black;
     text-align: left;
-    text-decoration: none;
-    width: 200px;
     margin: 5px;
+    height: 40px;
 }
 
-/* Hide the original dropdown */
-.select-drop select {
-    display:none;
+.search-button {
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    margin: 5px;
+    height: 40px;
+    width: 200px;
 }
-
-.select-selected {
+.search-button button {
     background-color: #696;
+    text-align: center;
+    font-size: medium;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+}
+.search-button button:hover {
+    background-color: #7a7;
 }
 
-/* Style the arrow */
-.select-selected:after {
-    position: absolute;
-    content: "";
-    top: 22px;
-    right: 20px;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
-    border-color: #fff transparent transparent transparent;
-}
-
-.select-selected.select-arrow-active:after {
-    border-color: transparent transparent #fff transparent;
-    top: 28px;
-}
-
-/* Style drop down item list */
-.select-items div,.select-selected {
-  color: #000;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  height: 50px;
-  line-height: 50px;
-  width: 200px;
-  cursor: pointer;
-}
-
-.select-items {
+.option-list {
     position: absolute;
     background-color: #585;
     z-index: 10;
 }
-
-/* hide item list on close */
-.select-items div:hover, .same-as-selected {
-    background-color: rgba(0, 0, 0, 0.1);
+.option-list div {
+    height: 38px;
+    width: 200px;
+    line-height: 38px;
+    padding-left: 10px;
+    border: 1px solid transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+.option-list div:hover, .option-current {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-.select-hide {
-    display:none;
+.select-current {
+    height: 38px;
+    width: 198px;
+    line-height: 38px;
+    padding-left: 10px;
+    cursor: pointer;
+    background-color: #696;
+    border: 2px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+/* The drop arrow */
+.select-current:after {
+    position: absolute;
+    content: "";
+    top: 19px;
+    right: 10px;
+    border: 6px solid transparent;
+    border-top-color: #fff;
+    border-bottom-color: transparent;
+}
+.select-current.active:after {
+    top: 12px;
+    border-top-color: transparent;
+    border-bottom-color: #fff;
 }

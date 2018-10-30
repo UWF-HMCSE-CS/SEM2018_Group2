@@ -1,10 +1,11 @@
 .lfmBox {
-    margin-left: 1300px;
+    margin-left: 130px;
     margin-bottom: 20px;
     margin-top: 40px;
 }
 
 .lfmButton {
+    display: inline-block;
     background-color: aliceblue;
     border: 3px solid black;
     color: black;
@@ -45,7 +46,6 @@
     padding: 20px;
     background: lightgrey;
     border-radius: 5px;
-    width: 30%;
     height: 80%;
     width: 60%;
     position: relative;

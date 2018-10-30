@@ -1,12 +1,12 @@
 {
-  "name": "skeleton",
+  "name": "front end",
   "version": "1.0.0",
-  "description": "This is a simple app to get you started. Change the description as needed.",
+  "description": "Front end web service for Project Tabletop.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Adam Carmichael & Chris Odom",
+  "author": "SEM Group 2",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.4",
