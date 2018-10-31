@@ -1,16 +1,34 @@
 <div id="register" class="overlay">
     <div class="overlayContent">
         <h2>Sign up!</h2>
+        <hr>
         
         <form method="post" action="/signin" class="overlayForm">
             <div class="input">
-                <!-- Username -->
-                <!-- First Name -->
-                <!-- Last Name -->
-                <!-- Location -->
-                <!-- Email -->
-                <!-- Password -->
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <hr>
+                <div>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required />
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required />
+                </div>
+                <hr>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password1" name="password1"
+                       minlength="8" required placeholder="8 characters minimum" />
+                    <label for="password">Confirm:</label>
+                    <input type="password" id="password2" name="password2"
+                       minlength="8" required placeholder="passwords must match" />
+                </div>
             </div>
+            <hr>
             <div class="overlayButtons">
                 <a class="overlaySubmit" href="#signin">Submit</a>
                 <a class="overlayCancel" href="#signin">Cancel</a>

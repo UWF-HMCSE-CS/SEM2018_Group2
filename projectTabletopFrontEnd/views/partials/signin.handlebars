@@ -1,22 +1,30 @@
 <div id="signin" class="overlay">
     <div class="overlayContent">
         <h2>Sign in to Project Tabletop</h2>
+        <hr>
         
-        <form method="post" action="/signin" class="overlayForm">
+        <form action="/signin" method="post" class="overlayForm">
             <div class="input">
-                <!-- Username -->
-                <!-- Password -->
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password"
+                       minlength="8" required placeholder="8 characters minimum" />
+                </div>
             </div>
-            
+            <hr>
             <div class="overlayButtons">
-                <a class="formButton" href="#register">Not registered? Sign up!</a>
-            </div>
-            
-            <div class="overlayButtons">
-                <a class="overlaySubmit" href="#">Submit</a>
+                <button type="submit" class="overlaySubmit">Sign in<button>
                 <a class="overlayCancel" href="#">Cancel</a>
             </div>
         </form>
+        
+        <div class="overlayButtons">
+            <a class="formButton" href="#register">Not registered? Sign up!</a>
+        </div>
         
     </div>
 </div>

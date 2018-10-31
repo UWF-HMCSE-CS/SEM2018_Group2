@@ -5,28 +5,68 @@
         <form method="post" action="/createPost" class="overlayForm">
             <div class="input">
                 <!-- Game Type -->
-                
+                <select name="gameType">
+                    <option value="0">Select Game Type:</option>
+                    <option value="dnd">Dungeons and Dragons</option>
+                    <option value="pathfinder">Pathfinder</option>
+                    <option value="cthulhu">Call of Cthulhu</option>
+                    <option value="gurps">GURPS</option>
+                    <option value="other">Other</option>
+                </select>
+                <br><br>
                 
                 <!-- Description -->
-                
+                Description: 
+                    <input type="text" name="descField" placeholder="Description" size="60" tabindex="1" required="true"/>
+                <br><br>
                 
                 <!-- Days planned to meet (schedule) -->
-                
+                Days To Meet:<br>
+                    <div class="daysOfWeek">
+                        <label for="sunday">Sunday</label>
+                            <input id="sunday" type="checkbox" name="schedule" value="sunday"/>
+                        <label for="monday">Monday</label>
+                            <input id="monday" type="checkbox" name="schedule" value="monday"/>
+                        <label for="tuesday">Tuesday</label>
+                            <input id="" type="checkbox" name="schedule" value="tuesday"/>
+                        <label for="Wednesday">Wednesday</label>
+                            <input type="checkbox" name="schedule" value="wednesday"/>
+                        <label for="Thursday">Thursday</label>
+                            <input type="checkbox" name="schedule" value="thursday"/>
+                        <label for="Friday">Friday</label>
+                            <input type="checkbox" name="schedule" value="friday"/>
+                        <label for="Saturday">Saturday</label>
+                            <input type="checkbox" name="schedule" value="saturday"/>
+                    </div>
                 
                 <!-- If DM Required -->
-                
+                Is a DM Required?
+                <input type="checkbox" class="yesBox" name="dmBox" value="yes"/>
+                <br><br>
                 
                 <!-- Character Levels -->
-                
+                Starting Levels for Characters:
+                <input type="number" name="charLvl" placeholder="0" size="1" min="0" max="999" maxlength="3" required="true"/>
+                <br><br>
                 
                 <!-- Homebrew or Prebuilt -->
-                
+                <div class="homPreButtons">
+                Homebrew or Prebuilt?
+                    <label for="homebrew">Homebrew</label>
+                        <input type="radio" name="homPreButtons" value="homebrew"/>
+                    <label for="prebuilt">Prebuilt</label>
+                        <input type="radio" name="homPreButtons" value="prebuilt"/>
+                </div>
                 
                 <!-- Novice Friendly -->
-                
+                Novice Friendly?
+                <input type="checkbox" class="yesBox" name="noviceBox" value="yes"/>
+                <br><br>
                 
                 <!-- Number of Players Needed -->
-                
+                Number of Players Needed:
+                <input type="number" name="numPlayers" placeholder="0" size="1" min="0" max="999" maxlength="3" required="true"/>
+                <br><br>
                 
             </div>
             <div class="overlayButtons">

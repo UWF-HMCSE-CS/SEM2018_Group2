@@ -1,11 +1,13 @@
 let lfmPosts = [
     {
+        "postID": 1,
         "gameType": "DnD",
         "miles": 50,
         "description": "We're looking for a humble and friendly DM whose up for games on weekends in or around the Fort Walton Beach area.",
         "date": "10/11/2018"
     },
     {
+        "postID": 2,
         "gameType": "Pathfinder",
         "miles": 25,
         "description": "18+ hardcore RP only.",

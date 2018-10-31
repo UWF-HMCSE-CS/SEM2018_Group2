@@ -7,6 +7,7 @@
     <link href="/css/searchFilter.css" rel="stylesheet" type="text/css">
     <link href="/css/buttons.css" rel="stylesheet" type="text/css">
     <link href="/css/postsTable.css" rel="stylesheet" type="text/css">
+    <link href="/css/lfmPostsModule.css" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
@@ -19,11 +20,12 @@
         <a class="formButton" href="#signin">Sign in!</a>
         <a class="formButton" href="#lfmPostCreation">Create LFM Post</a>
     </div>
-    {{> signin}}
-    {{> register}}
-    {{> lfmPostModule}}
     
     {{> searchbar}}
+    
+    {{> signin}}
+        {{> register}}
+    {{> lfmPostModule}}
     
     {{{body}}}
 </body>

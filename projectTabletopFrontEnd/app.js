@@ -34,9 +34,15 @@ app.get('/results', function(req, res) {
 	res.redirect('/');
 });
 
+app.post('/signin', function(req, res) {
+    console.log("sign in attempted");
+    
+    res.redirect('/');
+});
+
 // sends post request to backend, redirects to landing page when done
 app.post('/createPost', function(req, res) {
-	
+	// NOTE req.body = information of form
 	// TODO send new post data to backend
 	
 	res.redirect('/');
