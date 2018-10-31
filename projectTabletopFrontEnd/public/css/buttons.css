@@ -1,10 +1,10 @@
-.lfmBox {
+.buttonBox {
     margin-left: 130px;
     margin-bottom: 20px;
     margin-top: 40px;
 }
 
-.lfmButton {
+.formButton {
     display: inline-block;
     background-color: aliceblue;
     border: 3px solid black;
@@ -16,10 +16,10 @@
     font-family: "Helvetica", serif;
     cursor: pointer;
     border-radius: 5px;
-    transition: all 0.3 ease-out;
+    transition: all 0.3s ease-out;
 }
 
-.lfmButton:hover {
+.formButton:hover {
     background: #696;
 }
 
@@ -32,7 +32,7 @@
     background: rgba(0,0,0,0.7);
     transition: opacity 500ms;
     visibility: hidden;
-    z-index: 99;
+    z-index: 20;
     opacity: 0;
 }
 
@@ -41,7 +41,7 @@
     opacity: 1;
 }
 
-.postCreation {
+.overlayContent {
     margin: 70px auto;
     padding: 20px;
     background: lightgrey;
@@ -52,13 +52,7 @@
     transition: all 5s ease-in-out;
 }
 
-.postCreation h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-
-.postCreation .close {
+.overlayContent .close {
   position: absolute;
   top: 20px;
   right: 30px;
@@ -69,19 +63,19 @@
   color: #333;
 }
 
-.postCreation .close:hover {
+.overlayContent .close:hover {
   color: #06D85F;
 }
 
-.postCreation .content {
+.overlayContent .content {
   overflow: auto;
 }
 
-.postCreation .moduleButtons {
+.overlayButtons {
     text-align: center;
 }
 
-.postCreation .lfmCancel {
+.overlayCancel {
     background-color: grey;
     color: white;
     padding: 14px 25px;
@@ -91,11 +85,11 @@
     position: relative;
 }
 
-.postCreation .lfmCancel:hover {
+.overlayCancel:hover {
     background-color: darkgrey;
 }
 
-.postCreation .lfmSubmit {
+.overlaySubmit {
     background-color: grey;
     color: white;
     padding: 14px 25px;
@@ -105,19 +99,15 @@
     position: relative;
 }
 
-.postCreation .lfmSubmit:hover {
+.overlaySubmit:hover {
     background-color: darkgrey;
-}
-
-.postCreation .input {
-    
 }
 
 @media screen and (max-width: 700px) {
-    .lfmBox {
+    .buttonBox {
         width: 70%;
     }
-    .postCreation {
+    .overlayContent {
         width: 70%;
     }
 }
