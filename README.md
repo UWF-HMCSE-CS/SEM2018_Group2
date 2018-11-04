@@ -5,8 +5,8 @@ Contributors: 	Bryan Mort,
 Lucas Mailander,
 Adam Carmichael,
 Omar Garcia
-Requires at least: 2.0
-Tested up to: 2.0
+Requires at least: 1.0
+Tested up to: 1.0
 
 
 == Description ==
