@@ -12,6 +12,27 @@ let lfmPosts = [
         "miles": 25,
         "description": "18+ hardcore RP only.",
         "date": "10/20/2018"
+    },
+    {
+        "postID": 3,
+        "gameType": "CoC",
+        "miles": 10,
+        "description": "Hello my name is Junior. Generally I play righteous characters but am okay with mixing it up.",
+        "date": "11/12/2018"
+    },
+    {
+        "postID": 4,
+        "gameType": "GURPS",
+        "miles": 50,
+        "description": "I only play paladins.",
+        "date": "10/01/2018"
+    },
+    {
+        "postID": 5,
+        "gameType": "DnD",
+        "miles": 50,
+        "description": "Priest looking for an adventuring group. Short games or long it doesn't matter.",
+        "date": "09/20/2018"
     }
 ];
 
