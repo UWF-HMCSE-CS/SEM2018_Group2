@@ -1,3 +1,6 @@
+const fetch = require("node-fetch");
+const baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
+
 let lfmPosts = [
     {
         "postID": 1,
@@ -38,5 +41,9 @@ let lfmPosts = [
 
 // Returns variable lfmPosts. To call in app.js use "postsService.getLfmPostsData;"
 exports.getLfmPostsData = function(query){
-    return lfmPosts;
+    let request = JSON.stringify(query);
+    fetch(baseURL + "/getLFM", {method: "post", body: request})
+    //.catch(console.error(err.message))   //???
+    .then(res => res.json())
+    .then(json => console.log(json));
 };

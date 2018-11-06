@@ -27,7 +27,7 @@ app.get('/results', function(req, res) {
 	currentFilters = req.query;
 	console.log(currentFilters);
 	
-	postList = postsService.getLfmPostsData();
+	postList = postsService.getLfmPostsData(currentFilters);
 	// TODO request search data from backend
 	
 	
