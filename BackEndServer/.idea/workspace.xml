@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55d8eb94-dad3-408f-9749-24f3717c8ec2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/TableTop/.ebextensions/node-settings.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/TableTop.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/runConfigurations/bin_www.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/TableTopv001.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/aws-sdk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/bin/www" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/public/stylesheets/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/routes/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/routes/users.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/views/error.pug" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/views/index.pug" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableTop/views/layout.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TableTopv001.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -162,14 +144,32 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1365335388">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="js" value="572" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JavaScript" value="572" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="75" column="44" lean-forward="true" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
+            <state relative-caret-position="4627">
+              <caret line="286" column="3" selection-start-line="286" selection-start-column="3" selection-end-line="286" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -177,7 +177,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/www">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
+            <state relative-caret-position="374">
               <caret line="22" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
@@ -215,11 +215,10 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="1390" />
-    <option name="height" value="1756" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-1890" />
+    <option name="width" value="1901" />
+    <option name="height" value="2111" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -291,14 +290,16 @@
       <workItem from="1540422810145" duration="5606000" />
       <workItem from="1540479055835" duration="2796000" />
       <workItem from="1541536922721" duration="3738000" />
+      <workItem from="1541547919660" duration="3961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27228000" />
+    <option name="totallyTimeSpent" value="31189000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="-2540" y="0" width="1267" height="1407" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.37174723" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -306,7 +307,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31962866" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31946623" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -379,17 +380,17 @@
     <entry file="file://$PROJECT_DIR$/aws-sdk.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="4627">
+          <caret line="286" column="3" selection-start-line="286" selection-start-column="3" selection-end-line="286" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/bin/www">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="75" column="44" lean-forward="true" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
+        <state relative-caret-position="374">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
