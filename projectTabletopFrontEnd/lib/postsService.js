@@ -1,7 +1,8 @@
 const fetch = require("node-fetch");
 const baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
 
-let lfmPosts = [
+// Sample data to if data is displayed when it exists
+/*let lfmPosts = [
     {
         "postID": 1,
         "gameType": "DnD",
@@ -37,7 +38,7 @@ let lfmPosts = [
         "description": "Priest looking for an adventuring group. Short games or long it doesn't matter.",
         "date": "09/20/2018"
     }
-];
+];*/
 
 // Returns variable lfmPosts. To call in app.js use "postsService.getLfmPostsData;"
 exports.getLfmPostsData = function(query){
