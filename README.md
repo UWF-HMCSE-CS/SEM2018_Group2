@@ -14,5 +14,5 @@ Project Tabletop is a web application that allows tabletop roleplayers to search
 
 
 == How to Run ==
-Currently there are two ways to test the project. One method is to simply interact with the website hosted on c9.io at url: https://project-tabletop-front-end-rotten.c9users.io/
-The other is to download the project from the GitHub master branch and run it locally.
+The project is hosted via AWS Elastic Beanstalk on the following URL:
+http://projecttabletop.us-east-2.elasticbeanstalk.com/
