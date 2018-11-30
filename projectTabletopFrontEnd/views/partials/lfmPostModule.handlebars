@@ -2,7 +2,7 @@
     <div class="overlayContent">
         <h2>LFM Post Creation</h2>
         
-        <form method="post" action="/createPost" class="overlayForm">
+        <form method="post" action="/createLfmPost" class="overlayForm">
             <div class="input">
                 <!-- Game Type -->
                 <select name="gameType">
@@ -68,9 +68,13 @@
                 <input type="number" name="numPlayers" placeholder="0" size="1" min="0" max="999" maxlength="3" required="true"/>
                 <br><br>
                 
+                <!-- Date submitted with form, hidden from user -->
+                <input type="hidden" name="date"/>
+                
             </div>
             <div class="overlayButtons">
-                <a class="overlaySubmit" href="#">Submit</a>
+                <!-- <a class="overlaySubmit" href="#">Submit</a> -->
+                <a class ="overlaySubmit"><button input type="submit">Submit</button></a>
                 <a class="overlayCancel" href="#">Cancel</a>
             </div>
         </form>

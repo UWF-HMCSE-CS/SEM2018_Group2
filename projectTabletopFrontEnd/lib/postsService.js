@@ -1,50 +1,24 @@
-const fetch = require("node-fetch");
-const baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
+let fetch = require("node-fetch");
+//let baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
+let baseURL = "https://main-lm88.c9users.io";
 
-// Sample data to if data is displayed when it exists
-/*let lfmPosts = [
-    {
-        "postID": 1,
-        "gameType": "DnD",
-        "miles": 50,
-        "description": "We're looking for a humble and friendly DM whose up for games on weekends in or around the Fort Walton Beach area.",
-        "date": "10/11/2018"
+module.exports = {
+    sendLfmPost: function(query) {
+        let request = JSON.stringify(query);
+        let result;
+        fetch(baseURL + "/populateLfmPost", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(json => result = json);
+        //.catch(console.error(err.message));
+        
+        return result;
     },
-    {
-        "postID": 2,
-        "gameType": "Pathfinder",
-        "miles": 25,
-        "description": "18+ hardcore RP only.",
-        "date": "10/20/2018"
-    },
-    {
-        "postID": 3,
-        "gameType": "CoC",
-        "miles": 10,
-        "description": "Hello my name is Junior. Generally I play righteous characters but am okay with mixing it up.",
-        "date": "11/12/2018"
-    },
-    {
-        "postID": 4,
-        "gameType": "GURPS",
-        "miles": 50,
-        "description": "I only play paladins.",
-        "date": "10/01/2018"
-    },
-    {
-        "postID": 5,
-        "gameType": "DnD",
-        "miles": 50,
-        "description": "Priest looking for an adventuring group. Short games or long it doesn't matter.",
-        "date": "09/20/2018"
+    
+    getFilteredPosts: function(query) {
+        let request = JSON.stringify(query);
+        fetch(baseURL + "/organizePosts", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(json => console.log(json));
+        //.catch(console.error(err.message));
     }
-];*/
-
-// Returns variable lfmPosts. To call in app.js use "postsService.getLfmPostsData;"
-exports.getLfmPostsData = function(query){
-    let request = JSON.stringify(query);
-    fetch(baseURL + "/getLFM", {method: "post", body: request})
-    //.catch(console.error(err.message))   //???
-    .then(res => res.json())
-    .then(json => console.log(json));
 };

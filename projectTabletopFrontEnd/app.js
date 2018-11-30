@@ -5,6 +5,9 @@ let postsService = require("./lib/postsService.js");
 let currentFilters = {};
 let postList = [];
 
+let bp = require("body-parser");
+app.use(bp.urlencoded( {extended: false} ));
+
 // set up handlebars view engine
 let handlebars = require('express-handlebars')
 	.create({ defaultLayout:'main' });
@@ -15,21 +18,15 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
 
-
 // Renders the landing page
 app.get('/', function(req, res) {
-	
-	res.render('layouts/lfmPosts', { post: postList , filters: currentFilters});
+	res.render('layouts/lfmPosts', {post: postList, filters: currentFilters});
 });
 
 // sends search request to backend, redirects to landing page for display
 app.get('/results', function(req, res) {
 	currentFilters = req.query;
-	console.log(currentFilters);
-	
-	postList = postsService.getLfmPostsData(currentFilters);
-	// TODO request search data from backend
-	
+	postList = postsService.getFilteredPosts(currentFilters);
 	
 	res.redirect('/');
 });
@@ -41,9 +38,18 @@ app.post('/signin', function(req, res) {
 });
 
 // sends post request to backend, redirects to landing page when done
-app.post('/createPost', function(req, res) {
-	// NOTE req.body = information of form
-	// TODO send new post data to backend
+app.post('/createLfmPost', function(req, res) {
+	let thisDate = new Date();
+	let month = thisDate.getUTCMonth() + 1;
+	let day = thisDate.getUTCDate();
+	let year = thisDate.getUTCFullYear();
+	let currentDate = year + "/" + month + "/" + day;
+	
+	req.body.date = currentDate;
+	
+	let somePost = postsService.sendLfmPost(req.body);
+	somePost = JSON.parse(somePost);
+	postList.push(somePost);
 	
 	res.redirect('/');
 }); 

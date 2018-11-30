@@ -1,4 +1,4 @@
-#posts {
+#lfmPosts {
     font-family: "Comic Sans MS", serif;
     border-collapse: collapse;
     width: 100%;
@@ -6,7 +6,20 @@
     margin-top: 10px;
 }
 
-#posts td, #posts th {
+#lfmPosts td, #lfmPosts th {
+    border: 2px solid black;
+    padding: 8px;
+}
+
+#lfgPosts {
+    font-family: "Comic Sans MS", serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#lfgPosts td, #lfgPosts th {
     border: 2px solid black;
     padding: 8px;
 }
