@@ -1,9 +1,11 @@
 const express = require('express');
 
 let app = express();
-let postsService = require("./lib/postsService.js");
 let currentFilters = {};
 let postList = [];
+let fetch = require("node-fetch");
+//let baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
+let baseURL = "https://main-lm88.c9users.io";
 
 let bp = require("body-parser");
 app.use(bp.urlencoded( {extended: false} ));
@@ -25,10 +27,19 @@ app.get('/', function(req, res) {
 
 // sends search request to backend, redirects to landing page for display
 app.get('/results', function(req, res) {
-	currentFilters = req.query;
-	postList = postsService.getFilteredPosts(currentFilters);
 	
-	res.redirect('/');
+	let request = JSON.stringify(req.query);
+    fetch(baseURL + "/getLFM", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(function(json) {
+            postList = json;
+            console.log(postList);
+            
+			res.redirect('/');
+        })
+        .catch(function(err) {
+        	console.log(err.message);
+        });
 });
 
 app.post('/signin', function(req, res) {
@@ -47,11 +58,18 @@ app.post('/createLfmPost', function(req, res) {
 	
 	req.body.date = currentDate;
 	
-	let somePost = postsService.sendLfmPost(req.body);
-	somePost = JSON.parse(somePost);
-	postList.push(somePost);
-	
-	res.redirect('/');
+	let request = JSON.stringify(req.body);
+    fetch(baseURL + "/populateLfmPost", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
+    .then(res => res.json())
+    .then(function(json) {
+        console.log(json);
+        postList.push(json);
+        
+		res.redirect('/');
+    })
+    .catch(function(err) {
+    	console.log(err.message);
+    });
 }); 
 
 // 404 catch-all handler (middleware)
