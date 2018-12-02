@@ -31,14 +31,67 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get('/count?table = {id}', function(req, res){
+    var params = {
+        TableName : table,
+    };
+
+    var svc = new AWS.DynamoDB();
+
+    svc.describeTable(params, function(err, data) {
+        if (err) {
+            console.log(err, err.stack);
+        } else {
+            console.log(data.Table.ItemCount);
+            res.send(data.Table.ItemCount);
+        }
+    });
+});
+
+
+app.post('/add', function(req, res) {
+    Table = "MEMBER";
+
+    var params = {
+        TableName: Table,
+        Item: {
+            "email": "tester@gmail.com",
+            "first_name": "TestName",
+            "last_name": "TestLastNAme",
+            "password": "testPassCode",
+            "player_id": "6",
+            "username": "test123",
+            "zip_code": "36526"
+        }
+    };
+
+    console.log("Adding a new item...");
+    docClient.put(params, function (err, data) {
+        if (err) {
+            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Added item:", JSON.stringify(data, null, 2));
+           res.send("Added item:");
+        }
+    })
+})
+
 app.post('/getMember', function(req, res) {
     Table = "MEMBER";
+
+    let query = "";
+
+    if(req.body.zip_code != null)
+    {
+        query += "#zip = :zip"
+        console.log("There is a zip");
+    }
 
     var params = {
         TableName : Table,
         ProjectionExpression: "#zip, email, first_name, last_name, password, username, player_id",
         FilterExpression:
-            "#zip = :zip",
+            query,
         ExpressionAttributeNames: {
             "#zip": "zip_code",
         },
@@ -53,15 +106,13 @@ app.post('/getMember', function(req, res) {
         if (err) {
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
         } else {
-            // print all the movies
             console.log("Scan succeeded.");
             data.Items.forEach(function (mem) {
                 console.log("player id = " + mem.player_id);
             });
             res.send(data);
 
-            // continue scanning if we have more movies, because
-            // scan can retrieve a maximum of 1MB of data
+
             if (typeof data.LastEvaluatedKey != "undefined") {
                 console.log("Scanning for more...");
                 params.ExclusiveStartKey = data.LastEvaluatedKey;
@@ -74,6 +125,7 @@ app.post('/getMember', function(req, res) {
 
 app.post('/getLFG', function(req, res) {
     Table = "LFG_POST";
+    console.log(req.body);
 
     var params = {
         TableName : Table,
@@ -81,7 +133,7 @@ app.post('/getLFG', function(req, res) {
         FilterExpression:
             "#gt = :game",//"#gt = :game AND #req = :region AND #st = :session AND #dp = :display",
         ExpressionAttributeNames: {
-            "#gt": "game_type",
+            "#gt": "game_tuype",
             //"#reg" : "region",
             //"#st" : "sessionType",
             //"#dp" : "displayPosts",
@@ -122,6 +174,7 @@ app.post('/getLFG', function(req, res) {
 app.post('/getLFM', function(req, res) {
     Table = "LFM_POST";
 
+
     var params = {
         TableName : Table,
         ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule", //"#gt,#reg,#st,#dp",
@@ -134,7 +187,7 @@ app.post('/getLFM', function(req, res) {
             //"#dp" : "displayPosts",
         },
         ExpressionAttributeValues: {
-            ":game" : req.body.game_type,
+            ":game" : req.Body.game_type,
             //":region" : query.region,
             //":session" : query.sessionType,
             //":display" : query.displayPosts,
@@ -153,7 +206,7 @@ app.post('/getLFM', function(req, res) {
             data.Items.forEach(function (LFM_POST) {
                 console.log("post id = " + LFM_POST.player_post_id);
             });
-            res.send(data);
+            res.send(data.toString());
 
             // continue scanning if we have more movies, because
             // scan can retrieve a maximum of 1MB of data
