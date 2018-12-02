@@ -31,9 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.get('/count?table = {id}', function(req, res){
+app.post('/count', function(req, res){
+    console.log(req.body.TableName)
     var params = {
-        TableName : table,
+        TableName : req.body.TableName,
     };
 
     var svc = new AWS.DynamoDB();
@@ -43,7 +44,7 @@ app.get('/count?table = {id}', function(req, res){
             console.log(err, err.stack);
         } else {
             console.log(data.Table.ItemCount);
-            res.send(data.Table.ItemCount);
+            res.send("" + data.Table.ItemCount);
         }
     });
 });
