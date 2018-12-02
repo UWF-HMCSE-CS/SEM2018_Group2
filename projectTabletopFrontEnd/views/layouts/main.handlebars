@@ -17,8 +17,11 @@
     <h2>Tabletop Roleplayers' Group-finding Service</h2>
     
     <div class="buttonBox">
-        <!--<a class="formButton" href="#signin">Sign in!</a>-->
+        {{#if auth}}
         <a class="formButton" href="#lfmPostCreation">Create LFM Post</a>
+        {{else}}
+        <a class="formButton" href="#signin">Sign in!</a>
+        {{/if}}
     </div>
     
     {{> searchbar}}

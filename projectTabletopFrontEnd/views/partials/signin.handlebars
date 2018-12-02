@@ -5,6 +5,12 @@
         
         <form action="/signin" method="post" class="overlayForm">
             <div class="input">
+                {{#if error}}
+                <div>
+                    <b>{{error}}</b>
+                </div>
+                {{/if}}
+                
                 <div>
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required />

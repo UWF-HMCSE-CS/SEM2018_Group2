@@ -1,14 +1,27 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const fetch = require("node-fetch");
+const credentials = require('./credentials.js');
 
 let app = express();
-let currentFilters = {};
-let postList = [];
-let fetch = require("node-fetch");
-//let baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
-let baseURL = "https://main-lm88.c9users.io";
+app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname + '/public'));
 
-let bp = require("body-parser");
+// set up body parser
+const bp = require("body-parser");
 app.use(bp.urlencoded( {extended: false} ));
+
+// set up cookie parser
+const cookieparser = require('cookie-parser');
+app.use(cookieparser(credentials.cookieSecret));
+
+// set up express session
+const exp_session = require('express-session');
+app.use(exp_session({
+    resave: false,
+    saveUninitialized: false,
+    secret: credentials.cookieSecret,
+}));
 
 // set up handlebars view engine
 let handlebars = require('express-handlebars')
@@ -16,17 +29,45 @@ let handlebars = require('express-handlebars')
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
-app.set('port', process.env.PORT || 3000);
 
-app.use(express.static(__dirname + '/public'));
+// GLOBALS
+//const baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
+const baseURL = "https://main-lm88.c9users.io";
+const header = {'Content-Type': 'application/json'};
+
+let currentFilters = {};
+let postList = [];
+
+// authentication verification middleware
+const authOnly = function(req, res, next) {
+    if (req.session.user != null)
+        next();
+    else
+        res.redirect('/');
+};
+
+// ROUTES
 
 // Renders the landing page
 app.get('/', function(req, res) {
-	res.render('layouts/lfmPosts', {post: postList, filters: currentFilters});
+    let isAuth = false;
+    if (req.session.user != null) {
+        isAuth = true;
+    }
+    
+    const params = {
+        post: postList,
+        filters: currentFilters,
+        auth: isAuth
+    };
+    
+	res.render('layouts/lfmPosts', params);
 });
 
 // sends search request to backend, redirects to landing page for display
-app.get('/results', function(req, res) {
+app.get('/search', function(req, res) {
+    
+    currentFilters = req.query;
 	
 	let request = JSON.stringify(req.query);
     fetch(baseURL + "/getLFM", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
@@ -42,14 +83,47 @@ app.get('/results', function(req, res) {
         });
 });
 
+// sign in authentication
 app.post('/signin', function(req, res) {
-    console.log("sign in attempted");
     
-    res.redirect('/');
+    // json will end up null if the username was not found
+	let request = JSON.stringify({user: req.body.username});
+    fetch(baseURL + "/getMember", {method: "post", body: request, headers: header})
+    .then(res => res.json())
+    .then(function(json) {
+        console.log(json);
+        
+        let passwordOK = false;
+        let errormsg;
+    
+        if (json != undefined) {
+            // user exists, so check the password
+            if (bcrypt.compareSync(req.body.password, json.password)) {
+                // password is correct
+                passwordOK = true;
+                req.session.user = json.username;
+            } else {
+                errormsg = 'Password is incorrect, please try again.';
+            }
+        } else {
+            errormsg = 'Username not found.';
+        }
+        
+        if (passwordOK) {
+            // send to top page
+            res.redirect('/');
+        } else {
+            // re-display login page with error message
+            res.render('/#signin', { error: errormsg });
+        }
+    })
+    .catch(function(err) {
+    	console.log(err.message);
+    });
 });
 
 // sends post request to backend, redirects to landing page when done
-app.post('/createLfmPost', function(req, res) {
+app.post('/createLfmPost', authOnly, function(req, res) {
 	let thisDate = new Date();
 	let month = thisDate.getUTCMonth() + 1;
 	let day = thisDate.getUTCDate();
@@ -59,7 +133,7 @@ app.post('/createLfmPost', function(req, res) {
 	req.body.date = currentDate;
 	
 	let request = JSON.stringify(req.body);
-    fetch(baseURL + "/populateLfmPost", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
+    fetch(baseURL + "/populateLfmPost", {method: "post", body: request, headers: header})
     .then(res => res.json())
     .then(function(json) {
         console.log(json);
@@ -70,7 +144,8 @@ app.post('/createLfmPost', function(req, res) {
     .catch(function(err) {
     	console.log(err.message);
     });
-}); 
+});
+
 
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
