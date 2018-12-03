@@ -31,8 +31,7 @@ app.set('view engine', 'handlebars');
 
 
 // GLOBALS
-//const baseURL = "https://tabletopserver-env.nsfmpmmpw3.us-east-2.elasticbeanstalk.com";
-const baseURL = "https://main-lm88.c9users.io";
+const baseURL = credentials.apiURL;
 const header = {'Content-Type': 'application/json'};
 
 let currentFilters = {};
@@ -50,7 +49,8 @@ const authOnly = function(req, res, next) {
 
 // Renders the landing page
 app.get('/', function(req, res) {
-    let isAuth = false;
+    req.session.user = "yo mamma";
+    let isAuth = true;
     if (req.session.user != null) {
         isAuth = true;
     }
@@ -61,16 +61,18 @@ app.get('/', function(req, res) {
         auth: isAuth
     };
     
-	res.render('layouts/lfmPosts', params);
+	res.render('layouts/posts', params);
 });
 
 // sends search request to backend, redirects to landing page for display
 app.get('/search', function(req, res) {
     
     currentFilters = req.query;
+    
+    
 	
 	let request = JSON.stringify(req.query);
-    fetch(baseURL + "/getLFM", {method: "post", body: request, headers: {'Content-Type': 'application/json'}})
+    fetch(baseURL + "/getPosts", {method: "post", body: request, headers: header})
         .then(res => res.json())
         .then(function(json) {
             postList = json;
@@ -86,8 +88,8 @@ app.get('/search', function(req, res) {
 // sign in authentication
 app.post('/signin', function(req, res) {
     
-    // json will end up null if the username was not found
 	let request = JSON.stringify({user: req.body.username});
+	
     fetch(baseURL + "/getMember", {method: "post", body: request, headers: header})
     .then(res => res.json())
     .then(function(json) {
@@ -96,12 +98,12 @@ app.post('/signin', function(req, res) {
         let passwordOK = false;
         let errormsg;
     
-        if (json != undefined) {
+        if (json.status == 'success') {
             // user exists, so check the password
-            if (bcrypt.compareSync(req.body.password, json.password)) {
+            if (bcrypt.compareSync(req.body.password, json.data.password)) {
                 // password is correct
                 passwordOK = true;
-                req.session.user = json.username;
+                req.session.user = json.data.username;
             } else {
                 errormsg = 'Password is incorrect, please try again.';
             }
@@ -122,23 +124,76 @@ app.post('/signin', function(req, res) {
     });
 });
 
+// register a new user
+app.post('/register', function(req, res) {
+    
+	let request = JSON.stringify({user: req.body.username});
+	
+	// check to see if the username is taken
+    fetch(baseURL + "/getMember", {method: "post", body: request, headers: header})
+    .then(res => res.json())
+    .then(function(json) {
+    
+        if (json.status != 'success') {
+            // username is available, so go ahead
+            let request = req.body;
+            let postType = "MEMBER";
+            
+            // TODO encrypt password
+            
+        	let postPackage = {table: postType, params: request};
+        	
+        	postPackage = JSON.stringify(postPackage);
+            fetch(baseURL + "/add", {method: "post", body: postPackage, headers: header})
+            .then(res => res.json())
+            .then(function(json) {
+                console.log(json);
+                
+        		res.redirect('/');
+            })
+            .catch(function(err) {
+            	console.log(err.message);
+            });
+        } else {
+            res.render('/#register', {error: "That username is unavailable"});
+        }
+    })
+    .catch(function(err) {
+    	console.log(err.message);
+    });
+});
+
 // sends post request to backend, redirects to landing page when done
-app.post('/createLfmPost', authOnly, function(req, res) {
+app.post('/createPost', authOnly, function(req, res) {
+    
+    let postData = req.body;
+    let postType = (postData.postType + "_POST");
+    delete postData.postType;
+    
 	let thisDate = new Date();
 	let month = thisDate.getUTCMonth() + 1;
 	let day = thisDate.getUTCDate();
 	let year = thisDate.getUTCFullYear();
 	let currentDate = year + "/" + month + "/" + day;
 	
-	req.body.date = currentDate;
+	postData.date = currentDate;
 	
-	let request = JSON.stringify(req.body);
-    fetch(baseURL + "/populateLfmPost", {method: "post", body: request, headers: header})
+	// TODO change schedule format from [days] to "0110101"
+	
+	let postPackage = {table: postType, params: postData};
+	
+	postPackage = JSON.stringify(postPackage);
+	
+	console.log(postPackage);
+	
+    fetch(baseURL + "/add", {method: "post", body: postPackage, headers: header})
     .then(res => res.json())
     .then(function(json) {
         console.log(json);
-        postList.push(json);
         
+        if (json.status == "success") {
+            postList.push(postData);
+        }
 		res.redirect('/');
     })
     .catch(function(err) {
