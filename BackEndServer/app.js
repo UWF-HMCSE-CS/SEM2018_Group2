@@ -52,7 +52,8 @@ app.post('/count', function(req, res){
 
 app.post('/add', function(req, res) {
     Table = "MEMBER";
-
+    //Table =  req.body.Table;
+    //Items = req.body.Items
     var params = {
         TableName: Table,
         Item: {
@@ -75,33 +76,36 @@ app.post('/add', function(req, res) {
            res.send("Added item:");
         }
     })
-})
+});
 
 app.post('/getMember', function(req, res) {
     Table = "MEMBER";
 
     let query = "";
 
-    if(req.body.zip_code != null)
+    if(req.body.user != null)
     {
-        query += "#zip = :zip"
-        console.log("There is a zip");
-    }
+        query += "#us = :username"
+        console.log("There is a user");
 
     var params = {
         TableName : Table,
-        ProjectionExpression: "#zip, email, first_name, last_name, password, username, player_id",
+        ProjectionExpression: "zip_code, email, first_name, last_name, password, #us, player_id",
         FilterExpression:
             query,
         ExpressionAttributeNames: {
-            "#zip": "zip_code",
+            "#us": "username",
         },
         ExpressionAttributeValues: {
-            ":zip" : req.body.zip_code,
+            ":username" : req.body.user,
         }
     };
 
     docClient.scan(params, onScan);
+    }
+    else{
+        res.send("{status: \"error\", message: \"username Required\" ");
+    }
 
     function onScan(err, data) {
         if (err) {
@@ -121,30 +125,23 @@ app.post('/getMember', function(req, res) {
             }
         }
     }
+
 });
 
-
-app.post('/getLFG', function(req, res) {
-    Table = "LFG_POST";
+app.post('/getPost', function(req, res) {
     console.log(req.body);
+    Table = req.body.TableName
 
     var params = {
         TableName : Table,
-        ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule", //"#gt,#reg,#st,#dp",
+        ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule",
         FilterExpression:
-            "#gt = :game",//"#gt = :game AND #req = :region AND #st = :session AND #dp = :display",
+            "#gt = :game",
         ExpressionAttributeNames: {
-            "#gt": "game_tuype",
-            //"#reg" : "region",
-            //"#st" : "sessionType",
-            //"#dp" : "displayPosts",
+            "#gt": "game_type",
         },
         ExpressionAttributeValues: {
             ":game" : req.body.game_type,
-            //":region" : query.region,
-            //":session" : query.sessionType,
-            //":display" : query.displayPosts,
-
         }
     };
 
@@ -154,15 +151,12 @@ app.post('/getLFG', function(req, res) {
         if (err) {
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
         } else {
-            // print all the movies
             console.log("Scan succeeded.");
-            data.Items.forEach(function (LFM_POST) {
-                console.log("player id = " + LFM_POST.player_post_id);
+            data.Items.forEach(function (POST) {
+                console.log("player id = " + POST.player_post_id);
             });
             res.send(data);
 
-            // continue scanning if we have more movies, because
-            // scan can retrieve a maximum of 1MB of data
             if (typeof data.LastEvaluatedKey != "undefined") {
                 console.log("Scanning for more...");
                 params.ExclusiveStartKey = data.LastEvaluatedKey;
@@ -172,53 +166,7 @@ app.post('/getLFG', function(req, res) {
     }
 });
 
-app.post('/getLFM', function(req, res) {
-    Table = "LFM_POST";
 
-
-    var params = {
-        TableName : Table,
-        ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule", //"#gt,#reg,#st,#dp",
-        FilterExpression:
-            "#gt = :game",//"#gt = :game AND #req = :region AND #st = :session AND #dp = :display",
-        ExpressionAttributeNames: {
-            "#gt": "game_type",
-            //"#reg" : "region",
-            //"#st" : "sessionType",
-            //"#dp" : "displayPosts",
-        },
-        ExpressionAttributeValues: {
-            ":game" : req.Body.game_type,
-            //":region" : query.region,
-            //":session" : query.sessionType,
-            //":display" : query.displayPosts,
-
-        }
-    };
-
-    docClient.scan(params, onScan);
-
-    function onScan(err, data) {
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            // print all the movies
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (LFM_POST) {
-                console.log("post id = " + LFM_POST.player_post_id);
-            });
-            res.send(data.toString());
-
-            // continue scanning if we have more movies, because
-            // scan can retrieve a maximum of 1MB of data
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            }
-        }
-    }
-});
 
 app.post('/getInvite', function(req, res) {
     Table = "INVITE";
@@ -312,7 +260,7 @@ app.post('/getApplication', function(req, res) {
             "#id": "player_id",
         },
         ExpressionAttributeValues: {
-            ":player" : reg.body.player_id,
+            ":player" : req.body.player_id,
         }
     };
 
@@ -339,6 +287,7 @@ app.post('/getApplication', function(req, res) {
         }
     }
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

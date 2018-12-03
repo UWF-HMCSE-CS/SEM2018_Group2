@@ -149,18 +149,20 @@
     <session id="-1365335388">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="608" />
+          <entry key="js" value="965" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="608" />
+          <entry key="JavaScript" value="965" />
         </counts>
       </usages-collector>
     </session>
@@ -170,8 +172,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+            <state relative-caret-position="646">
+              <caret line="80" column="42" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
+              <folding>
+                <element signature="e#865#1249#0" />
+                <element signature="e#1290#1994#0" />
+                <element signature="e#2099#3380#0" />
+                <element signature="e#3276#4393#0" />
+                <element signature="e#6562#7830#0" />
+                <element signature="e#7875#9048#0" />
+                <element signature="e#9607#10785#0" />
+                <element signature="e#10301#10330#0" />
+                <element signature="e#10389#10635#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -218,9 +231,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1357" />
-    <option name="width" value="1391" />
-    <option name="height" value="1757" />
+    <option name="x" value="1630" />
+    <option name="y" value="-30" />
+    <option name="width" value="1392" />
+    <option name="height" value="1758" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -296,16 +310,16 @@
       <workItem from="1542760900576" duration="383000" />
       <workItem from="1543604027623" duration="1124000" />
       <workItem from="1543769943203" duration="3329000" />
-      <workItem from="1543787131633" duration="361000" />
+      <workItem from="1543787131633" duration="3904000" />
+      <workItem from="1543802632092" duration="2739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36386000" />
+    <option name="totallyTimeSpent" value="42668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.37174723" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -313,7 +327,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32059282" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.1450858" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -388,8 +402,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+        <state relative-caret-position="646">
+          <caret line="80" column="42" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
+          <folding>
+            <element signature="e#865#1249#0" />
+            <element signature="e#1290#1994#0" />
+            <element signature="e#2099#3380#0" />
+            <element signature="e#3276#4393#0" />
+            <element signature="e#6562#7830#0" />
+            <element signature="e#7875#9048#0" />
+            <element signature="e#9607#10785#0" />
+            <element signature="e#10301#10330#0" />
+            <element signature="e#10389#10635#0" />
+          </folding>
         </state>
       </provider>
     </entry>
