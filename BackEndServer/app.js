@@ -31,6 +31,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+function scanner(res, params)
+{
+    docClient.scan(params, onScan);
+
+    function onScan(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Scan succeeded.");
+            res.send(data);
+
+            if (typeof data.LastEvaluatedKey != "undefined") {
+                console.log("Scanning for more...");
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+            }
+        }
+    }
+}
+
 app.post('/count', function(req, res){
     console.log(req.body.TableName)
     var params = {
@@ -49,28 +69,20 @@ app.post('/count', function(req, res){
     });
 });
 
-
 app.post('/add', function(req, res) {
-    Table = "MEMBER";
-    //Table =  req.body.Table;
-    //Items = req.body.Items
+    Table = req.body.table;
+    let Items = JSON.parse(req.body.params)
+    console.log(req.body.table)
     var params = {
         TableName: Table,
-        Item: {
-            "email": "tester@gmail.com",
-            "first_name": "TestName",
-            "last_name": "TestLastNAme",
-            "password": "testPassCode",
-            "player_id": "6",
-            "username": "test123",
-            "zip_code": "36526"
-        }
+        Item: Items
     };
 
     console.log("Adding a new item...");
     docClient.put(params, function (err, data) {
         if (err) {
             console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+            res.send("Unable to add item. Error JSON:")
         } else {
             console.log("Added item:", JSON.stringify(data, null, 2));
            res.send("Added item:");
@@ -145,28 +157,8 @@ app.post('/getPost', function(req, res) {
         }
     };
 
-    docClient.scan(params, onScan);
-
-    function onScan(err, data) {
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (POST) {
-                console.log("player id = " + POST.player_post_id);
-            });
-            res.send(data);
-
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            }
-        }
-    }
+    scanner(res,params);
 });
-
-
 
 app.post('/getInvite', function(req, res) {
     Table = "INVITE";
@@ -184,28 +176,7 @@ app.post('/getInvite', function(req, res) {
  }
     };
 
-    docClient.scan(params, onScan);
-
-    function onScan(err, data) {
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            // print all the movies
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (invite) {
-                console.log("player id = " + invite.player_id);
-            });
-            res.send(data);
-
-            // continue scanning if we have more movies, because
-            // scan can retrieve a maximum of 1MB of data
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            }
-        }
-    }
+    scanner(res,params);
 });
 
 app.post('/getGroup', function(req, res) {
@@ -224,28 +195,7 @@ app.post('/getGroup', function(req, res) {
         }
     };
 
-    docClient.scan(params, onScan);
-
-    function onScan(err, data) {
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            // print all the movies
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (group) {
-                console.log("player id = " + group.player_id);
-            });
-            res.send(data);
-
-            // continue scanning if we have more movies, because
-            // scan can retrieve a maximum of 1MB of data
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            }
-        }
-    }
+    scanner(res,params);
 });
 
 app.post('/getApplication', function(req, res) {
@@ -264,30 +214,8 @@ app.post('/getApplication', function(req, res) {
         }
     };
 
-    docClient.scan(params, onScan);
-
-    function onScan(err, data) {
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            // print all the movies
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (application) {
-                console.log("player id = " + application.player_id);
-            });
-            res.send(data);
-
-            // continue scanning if we have more movies, because
-            // scan can retrieve a maximum of 1MB of data
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            }
-        }
-    }
+    scanner(res,params);
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
