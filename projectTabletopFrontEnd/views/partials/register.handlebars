@@ -3,35 +3,45 @@
         <h2>Sign up!</h2>
         <hr>
         
-        <form method="post" action="/signin" class="overlayForm">
-            <div class="input">
+        <form id="register" method="post" action="/signin" class="overlayForm">
+            <div class="formElement">
                 <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required />
+                    <label for="newuser">Username:</label>
+                    <input type="text" id="newuser" name="newuser" required />
+                </div>
+                <div>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required />
                 </div>
-                <hr>
+            </div>
+            <div class="formElement">
                 <div>
                     <label for="firstName">First Name:</label>
                     <input type="text" id="firstName" name="firstName" required />
+                </div>
+                <div>
                     <label for="lastName">Last Name:</label>
                     <input type="text" id="lastName" name="lastName" required />
                 </div>
-                <hr>
+            </div>
+            <hr>
+            <div class="formElement">
                 <div>
                     <label for="password">Password:</label>
                     <input type="password" id="password1" name="password1"
                        minlength="8" required placeholder="8 characters minimum" />
+                </div>
+                <div>
                     <label for="password">Confirm:</label>
                     <input type="password" id="password2" name="password2"
                        minlength="8" required placeholder="passwords must match" />
                 </div>
             </div>
+            
             <hr>
             <div class="overlayButtons">
-                <a class="overlaySubmit" href="#signin">Submit</a>
-                <a class="overlayCancel" href="#signin">Cancel</a>
+                <button type="submit">Register</button>
+                <button onclick="overlayOff('register');overlayOn('signin')">Cancel</button>
             </div>
         </form>
         

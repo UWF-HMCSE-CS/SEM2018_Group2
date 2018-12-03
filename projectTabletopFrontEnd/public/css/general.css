@@ -1,27 +1,60 @@
 body {
     background-color: lightgrey;
+    font-family: arial, sans-serif;
+    font-size: 100%;
 }
 
 h1 {
     color: black;
     text-align: center;
-    font-size: 50px;
+    font-size: 300%;
     font-family: "Comic Sans MS", serif;
-    margin-bottom: 15px;
+    margin: 50px 0 15px 0;
 }
 
 h2 {
     color: black;
     text-align: center;
-    font-size: 25px;
+    font-size: 200%;
     font-family: "Comic Sans MS", sans-serif;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
-p {
+p, button, a {
     font-family: "Comic Sans MS", serif;
 }
 
-button {
-    font-family: "Comic Sans MS", serif;
+*:focus {
+    outline: none;
+}
+
+.buttonBox {
+    text-align: right;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.formButton {
+    display: inline-block;
+    background-color: aliceblue;
+    border: 3px solid black;
+    color: black;
+    padding: 4px 14px 8px 14px;
+    text-align: center;
+    font-size: 110%;
+    border-radius: 5px;
+    width: 150px;
+}
+.formButton:hover {
+    background: #696;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+    .buttonBox {
+        width: 70%;
+    }
+    .overlayContent {
+        width: 70%;
+    }
 }

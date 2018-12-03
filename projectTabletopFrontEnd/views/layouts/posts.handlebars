@@ -1,0 +1,19 @@
+<div class="postList" id="postList">
+    
+    {{#each post}}
+    <div class="post">
+        <input id="post{{player_post_id}}" type="checkbox">
+            <label for="post{{player_post_id}}">
+                Game: {{game_type}}<br>
+                Description: {{description}}<br>
+                Date: {{date}}
+            </label>
+        <div class="postDetails">
+            Details: {{game_type}}<br>
+            Details: {{description}}<br>
+            Details: {{date}}
+        </div>
+    </div>
+    {{/each}}
+    
+</div>

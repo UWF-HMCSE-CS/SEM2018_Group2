@@ -1,0 +1,86 @@
+<div id="newLfgPost" class="overlay">
+    <div class="overlayContent">
+        <h2>Looking For Group</h2>
+        <hr>
+        
+        <form method="post" action="/createPost" class="overlayForm">
+            <!-- Type of post, hidden from user  -->
+            <input type="hidden" name="postType" value="LFG"/>
+            <!-- Date submitted with form, hidden from user -->
+            <input type="hidden" name="date"/>
+            
+            <!-- Game Type -->
+            <div class="formElement">
+                <label for="game_type">Select Game Type:</label><br>
+                <select name="game_type" value="0">
+                    <option value="dnd">Dungeons and Dragons</option>
+                    <option value="pathfinder">Pathfinder</option>
+                    <option value="cthulhu">Call of Cthulhu</option>
+                    <option value="gurps">GURPS</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <!-- Description -->
+            <div class="formElement">
+                <label for="description">Description:</label><br>
+                <textarea name="description" placeholder="Describe the experience you're looking for..." rows="4" maxLength="280" required="true"></textarea>
+            </div>
+            
+            <!-- Days planned to meet (schedule) -->
+            <fieldset class="formElement">
+                <legend>Days Available:</legend>
+                <div>
+                    <label for="sunday">Sunday</label>
+                    <input type="checkbox" name="schedule" value="sunday"/>
+                </div>
+                <div>
+                    <label for="monday">Monday</label>
+                    <input type="checkbox" name="schedule" value="monday"/>
+                </div>
+                <div>
+                    <label for="tuesday">Tuesday</label>
+                    <input type="checkbox" name="schedule" value="tuesday"/>
+                </div>
+                <div>
+                    <label for="Wednesday">Wednesday</label>
+                    <input type="checkbox" name="schedule" value="wednesday"/>
+                </div>
+                <br>
+                <div>
+                    <label for="Thursday">Thursday</label>
+                    <input type="checkbox" name="schedule" value="thursday"/>
+                </div>
+                <div>
+                    <label for="Friday">Friday</label>
+                    <input type="checkbox" name="schedule" value="friday"/>
+                </div>
+                <div>
+                    <label for="Saturday">Saturday</label>
+                    <input type="checkbox" name="schedule" value="saturday"/>
+                </div>
+            </fieldset>
+            
+            <div class="formElement">
+                <div>
+                    <!-- Novice Friendly -->
+                    <label for="novice">I am a Novice</label>
+                    <input type="checkbox" name="novice" value="true"/>
+                </div>
+                <div>
+                    <!-- If DM Required -->
+                    <label for="DM">I can DM</label>
+                    <input type="checkbox" name="DM" value="true"/>
+                </div>
+            </div>
+        
+            <hr>
+            <div class="overlayButtons">
+                <!-- <a class="overlaySubmit" href="#">Submit</a> -->
+                <button input type="submit">Submit</button>
+                <a href="/">Cancel</a>
+            </div>
+        
+        </form>
+    </div>
+</div>

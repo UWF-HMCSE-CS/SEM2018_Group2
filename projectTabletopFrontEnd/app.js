@@ -34,6 +34,7 @@ app.set('view engine', 'handlebars');
 const baseURL = credentials.apiURL;
 const header = {'Content-Type': 'application/json'};
 
+// TODO move postList and filters to req.session
 let currentFilters = {};
 let postList = [];
 
@@ -49,8 +50,7 @@ const authOnly = function(req, res, next) {
 
 // Renders the landing page
 app.get('/', function(req, res) {
-    req.session.user = "yo mamma";
-    let isAuth = true;
+    let isAuth = false;
     if (req.session.user != null) {
         isAuth = true;
     }
@@ -69,8 +69,6 @@ app.get('/search', function(req, res) {
     
     currentFilters = req.query;
     
-    
-	
 	let request = JSON.stringify(req.query);
     fetch(baseURL + "/getPosts", {method: "post", body: request, headers: header})
         .then(res => res.json())
@@ -127,7 +125,7 @@ app.post('/signin', function(req, res) {
 // register a new user
 app.post('/register', function(req, res) {
     
-	let request = JSON.stringify({user: req.body.username});
+	let request = JSON.stringify({user: req.body.newuser});
 	
 	// check to see if the username is taken
     fetch(baseURL + "/getMember", {method: "post", body: request, headers: header})
@@ -179,6 +177,7 @@ app.post('/createPost', authOnly, function(req, res) {
 	postData.date = currentDate;
 	
 	// TODO change schedule format from [days] to "0110101"
+	// TODO fill in missing checkbox fields with false
 	
 	let postPackage = {table: postType, params: postData};
 	

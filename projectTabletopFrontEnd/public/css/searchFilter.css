@@ -4,7 +4,7 @@
 
 .searchFilterBar {
     position: relative;
-    margin: auto;
+    margin: 5px 0;
     text-align: center;
     background-color: lightgrey;
     font-family: "Comic Sans MS", serif;
@@ -18,6 +18,7 @@
     position: relative;
     color: black;
     text-align: left;
+    font-size: 100%;
     margin: 5px;
     height: 40px;
 }
@@ -33,14 +34,15 @@
 .search-button button {
     background-color: #696;
     text-align: center;
-    font-size: medium;
+    font-size: 110%;
     border: 2px solid black;
     border-radius: 5px;
     height: 100%;
     width: 100%;
 }
 .search-button button:hover {
-    background-color: #7a7;
+    background-color: aliceblue;
+    cursor: pointer;
 }
 
 .option-list {
@@ -71,6 +73,9 @@
     border: 2px solid black;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+.select-current:hover {
+    background-color: aliceblue;
 }
 /* The drop arrow */
 .select-current:after {

@@ -1,0 +1,52 @@
+.postList {
+    position: relative;
+    margin: 5px 0;
+    text-align: center;
+    border: 3px solid black;
+    border-radius: 4px;
+    padding: 3px;
+}
+
+.post {
+    position: relative;
+    margin-bottom: 1px;
+    width: 100%;
+    overflow: hidden;
+}
+.post input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+.post label {
+    position: relative;
+    display: block;
+    padding: 4px;
+    margin: 6px 10px 0 10px;
+    background: lightgrey;
+    border: solid black;
+    border-width: 2px 2px 1px 2px;
+    border-radius: 4px 4px 0 0;
+    font-weight: bold;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.postDetails {
+    max-height: 0;
+    line-height: 1.5;
+    padding: 0 4px;
+    margin: 0 12px 0 12px;
+    overflow: scroll;
+    background: lightgrey;
+    border: solid black;
+    border-width: 1px;
+    border-radius: 0 0 4px 4px;
+    transition: max-height .5s;
+}
+.postDetails::-webkit-scrollbar {
+    display: none;
+}
+.post input:checked ~ .postDetails {
+    max-height: 72px;
+}

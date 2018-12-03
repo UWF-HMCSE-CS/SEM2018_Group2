@@ -3,34 +3,37 @@
         <h2>Sign in to Project Tabletop</h2>
         <hr>
         
-        <form action="/signin" method="post" class="overlayForm">
-            <div class="input">
-                {{#if error}}
-                <div>
-                    <b>{{error}}</b>
-                </div>
-                {{/if}}
-                
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required />
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password"
-                       minlength="8" required placeholder="8 characters minimum" />
-                </div>
+        <div class="overlayButtons">
+            Not registered?
+            <button onclick="overlayOff('signin');overlayOn('register')">Sign up!</button>
+        </div>
+        <hr>
+        
+        <form id="signin" action="/signin" method="post" class="overlayForm">
+        
+            {{#if error}}
+            <div class="formElement">
+                <b>{{error.message}}</b>
             </div>
+            {{/if}}
+            
+            <div class="formElement">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div class="formElement">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"
+                   minlength="8" required placeholder="8 characters minimum" />
+            </div>
+            
             <hr>
             <div class="overlayButtons">
-                <button type="submit" class="overlaySubmit">Sign in<button>
-                <a class="overlayCancel" href="#">Cancel</a>
+                <button type="submit">Sign in</button>
+                <button onclick="overlayOff('signin')">Cancel</button>
             </div>
+            
         </form>
-        
-        <div class="overlayButtons">
-            <a class="formButton" href="#register">Not registered? Sign up!</a>
-        </div>
         
     </div>
 </div>

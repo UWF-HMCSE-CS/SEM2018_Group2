@@ -5,10 +5,9 @@
 
     <link href="/css/general.css" rel="stylesheet" type="text/css">
     <link href="/css/searchFilter.css" rel="stylesheet" type="text/css">
-    <link href="/css/buttons.css" rel="stylesheet" type="text/css">
-    <link href="/css/postsTable.css" rel="stylesheet" type="text/css">
-    <link href="/css/lfmPostsModule.css" rel="stylesheet" type="text/css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/postsList.css" rel="stylesheet" type="text/css">
+    <link href="/css/overlay.css" rel="stylesheet" type="text/css">
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
 </head>
 
 <body>
@@ -18,9 +17,10 @@
     
     <div class="buttonBox">
         {{#if auth}}
-        <a class="formButton" href="#lfmPostCreation">Create LFM Post</a>
+        <button class="formButton" onclick="overlayOn('newLfmPost')">Create LFM Post</button>
+        <button class="formButton" onclick="overlayOn('newLfgPost')">Create LFG Post</button>
         {{else}}
-        <a class="formButton" href="#signin">Sign in!</a>
+        <button class="formButton" onclick="overlayOn('signin')">Sign in!</button>
         {{/if}}
     </div>
     
@@ -28,9 +28,11 @@
     
     {{> signin}}
         {{> register}}
-    {{> lfmPostModule}}
+    {{> newLfmPost}}
+    {{> newLfgPost}}
     
     {{{body}}}
+    
+    <script src="/css/index.js"></script>
 </body>
-
 </html>
