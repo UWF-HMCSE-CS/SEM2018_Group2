@@ -140,10 +140,20 @@ app.post('/getMember', function(req, res) {
 
 });
 
-app.post('/getPost', function(req, res) {
+app.post('/getPosts', function(req, res) {
     console.log(req.body);
-    Table = req.body.TableName
-
+    
+	if(req.body.post_type == 'lfm')
+	{
+		Table = "LFM_POST";
+	}
+	else if(req.body.post_type == 'lfg')
+	{
+		Table = "LFG_POST";
+	}
+	else{
+		res.send("Invalid table type");
+	}
     var params = {
         TableName : Table,
         ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule",
