@@ -51,43 +51,42 @@ function scanner(res, params)
     }
 }
 
-app.post('/count', function(req, res){
-    console.log(req.body.TableName)
+app.post('/add', function(req, res) {
+    let Table = req.body.table;
+    let Items = req.body.params;
+    //console.log("add command " + req.body);
+    console.log("params = " + req.body.params);
+    console.log(req.body)
+
     var params = {
-        TableName : req.body.TableName,
+        TableName: Table,
     };
 
-    var svc = new AWS.DynamoDB();
-
-    svc.describeTable(params, function(err, data) {
+    docClient.scan(params, function(err, data) {
         if (err) {
             console.log(err, err.stack);
         } else {
-            console.log(data.Table.ItemCount);
-            res.send("" + data.Table.ItemCount);
+                params.Item = Items;
+            if (params.TableName == 'LFG_POST') {
+                params.Item.player_post_id = "lfg" +(1 + data.Count);
+            } else if (params.TableName == 'LFM_POST') {
+                params.Item.player_post_id = "lfm" + (1 + data.Count);
+            } else {
+                params.Item.player_id = "" + (1 + data.Count);
+            }
+
+            console.log("Adding a new item..." + JSON.stringify(params));
+            docClient.put(params, function (err, data) {
+                if (err) {
+                    console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+                    res.send(JSON.stringify({error: "Unable to add item", message: err}));
+                } else {
+                    console.log("Added item:", JSON.stringify(data, null, 2));
+                    res.send(JSON.stringify({status: "success"}));
+                }
+            });
         }
     });
-});
-
-app.post('/add', function(req, res) {
-    Table = req.body.table;
-    let Items = JSON.parse(req.body.params)
-    console.log(req.body.table)
-    var params = {
-        TableName: Table,
-        Item: Items
-    };
-
-    console.log("Adding a new item...");
-    docClient.put(params, function (err, data) {
-        if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            res.send("Unable to add item. Error JSON:")
-        } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-           res.send("Added item:");
-        }
-    })
 });
 
 app.post('/getMember', function(req, res) {
@@ -142,21 +141,25 @@ app.post('/getMember', function(req, res) {
 
 app.post('/getPosts', function(req, res) {
     console.log(req.body);
-    
-	if(req.body.post_type == 'lfm')
-	{
-		Table = "LFM_POST";
-	}
-	else if(req.body.post_type == 'lfg')
-	{
-		Table = "LFG_POST";
-	}
-	else{
-		res.send("Invalid table type");
-	}
+    let Table;
+    let Expression;
+
+    if(req.body.post_type == 'lfm')
+    {
+        Table = "LFM_POST";
+        Expression = "#gt, DM, post_date, char_lvl,  homebrew, novice, description, num_players, player_post_id, schedule";
+    }
+    else if(req.body.post_type == 'lfg')
+    {
+        Table = "LFG_POST";
+        Expression = "#gt, DM, post_date, description, skill_lvl, player_post_id, schedule";
+    }
+    else{
+        res.send(JSON.stringify({status: "error", message: "Invalid table type"}));
+    }
     var params = {
         TableName : Table,
-        ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule",
+        ProjectionExpression: Expression,
         FilterExpression:
             "#gt = :game",
         ExpressionAttributeNames: {
