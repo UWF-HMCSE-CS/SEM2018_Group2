@@ -52,7 +52,7 @@ app.get('/', function(req, res) {
     
     const params = {
         post: req.session.postsList,
-        filters: req.session.currentFilters,
+        lfm: (req.session.currentFilters ? req.session.currentFilters.post_type == 'lfm' : true),
         auth: false
     };
     
@@ -159,14 +159,15 @@ app.get('/logout', function(req, res) {
 // register a new user
 app.post('/register', function(req, res) {
     
-	let request = { user: req.body.newuser };
+	let request = { user: req.body.username };
 	request = JSON.stringify(request);
 	
 	// check to see if the username is taken
     fetch(baseURL + "/getMember", {method: "post", body: request, headers: header})
     .then(res => res.json())
     .then(function(json) {
-        if (json.status != 'success') {
+        console.log(json);
+        if (json.Count == 0) {
             // username is available, so go ahead
             let request = req.body;
             let postType = "MEMBER";
