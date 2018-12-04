@@ -17,10 +17,12 @@
     
     <div class="buttonBox">
         {{#if auth}}
-        <button class="formButton" onclick="overlayOn('newLfmPost')">Create LFM Post</button>
-        <button class="formButton" onclick="overlayOn('newLfgPost')">Create LFG Post</button>
+        <p>Welcome, {{name}}!</p>
+        <a href='/logout'>Sign Out</a>
+        <button onClick="overlayOn('newLfmPost')">Create LFM Post</button>
+        <button onClick="overlayOn('newLfgPost')">Create LFG Post</button>
         {{else}}
-        <button class="formButton" onclick="overlayOn('signin')">Sign in!</button>
+        <button onclick="overlayOn('signin')">Sign in!</button>
         {{/if}}
     </div>
     

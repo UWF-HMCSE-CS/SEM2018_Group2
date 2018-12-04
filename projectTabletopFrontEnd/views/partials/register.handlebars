@@ -3,7 +3,7 @@
         <h2>Sign up!</h2>
         <hr>
         
-        <form id="register" method="post" action="/signin" class="overlayForm">
+        <form id="register"action="/register" method="post"  class="overlayForm">
             <div class="formElement">
                 <div>
                     <label for="newuser">Username:</label>
@@ -41,7 +41,7 @@
             <hr>
             <div class="overlayButtons">
                 <button type="submit">Register</button>
-                <button onclick="overlayOff('register');overlayOn('signin')">Cancel</button>
+                <button type="reset" onclick="overlayOff('register');overlayOn('signin')">Cancel</button>
             </div>
         </form>
         

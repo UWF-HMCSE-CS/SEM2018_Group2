@@ -86,7 +86,8 @@
     text-align: center;
     margin-top: 10px;
 }
-.overlayButtons button, a {
+.overlayButtons button,
+.overlayButtons a {
     background-color: grey;
     color: white;
     padding: 5px 10px;
@@ -99,6 +100,7 @@
     border-width: thin;
     border-color: black;
 }
-.overlayButtons a:hover, button:hover {
+.overlayButtons button:hover,
+.overlayButtons a:hover {
     background-color: darkgrey;
 }

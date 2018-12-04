@@ -22,6 +22,7 @@ h2 {
 
 p, button, a {
     font-family: "Comic Sans MS", serif;
+    text-decoration: none;
 }
 
 *:focus {
@@ -29,23 +30,23 @@ p, button, a {
 }
 
 .buttonBox {
+    font-family: "Comic Sans MS", serif;
     text-align: right;
-    margin-right: 50px;
-    margin-bottom: 20px;
-    margin-top: 40px;
+    margin: 20px 50px;
 }
-.formButton {
+.buttonBox button,
+.buttonBox a {
     display: inline-block;
     background-color: aliceblue;
-    border: 3px solid black;
     color: black;
     padding: 4px 14px 8px 14px;
     text-align: center;
     font-size: 110%;
+    border: 3px solid black;
     border-radius: 5px;
-    width: 150px;
 }
-.formButton:hover {
+.buttonBox button:hover,
+.buttonBox a:hover {
     background: #696;
     cursor: pointer;
 }
