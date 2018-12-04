@@ -3,7 +3,7 @@ var AWS = require('aws-sdk');
 AWS.config.update({
     region: "us-east-2",
     endpoint: "https://dynamodb.us-east-2.amazonaws.com"
-})
+});
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -31,8 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-function scanner(res, params)
-{
+function scanner(res, params) {
     docClient.scan(params, onScan);
 
     function onScan(err, data) {
@@ -51,112 +50,96 @@ function scanner(res, params)
     }
 }
 
-app.post('/count', function(req, res){
-    console.log(req.body.TableName)
+app.post('/add', function(req, res) {
+    let Table = req.body.table;
+    let Items = JSON.parse(req.body.params);
+    console.log(req.body.table);
+    console.log(req.body.params);
     var params = {
-        TableName : req.body.TableName,
+        TableName: Table,
+        Item: Items
     };
-
+    
     var svc = new AWS.DynamoDB();
-
     svc.describeTable(params, function(err, data) {
         if (err) {
             console.log(err, err.stack);
         } else {
             console.log(data.Table.ItemCount);
-            res.send("" + data.Table.ItemCount);
+            
+            if (params.TableName == 'LFG_POST') {
+                params.Item.player_post_id = "lfg" + data.Table.ItemCount;
+            } else if (params.TableName == 'LFM_POST') {
+                params.Item.player_post_id = "lfm" + data.Table.ItemCount;
+            } else {
+                params.Item.player_id = data.Table.ItemCount;
+            }
+
+            console.log("Adding a new item...");
+            docClient.put(params, function (err, data) {
+                if (err) {
+                    console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+                    res.send(JSON.stringify({error: "Unable to add item", message: err}));
+                } else {
+                    console.log("Added item:", JSON.stringify(data, null, 2));
+                    res.send(JSON.stringify({status: "success"}));
+                }
+            });
         }
     });
 });
 
-app.post('/add', function(req, res) {
-    Table = req.body.table;
-    let Items = JSON.parse(req.body.params)
-    console.log(req.body.table)
-    var params = {
-        TableName: Table,
-        Item: Items
-    };
-
-    console.log("Adding a new item...");
-    docClient.put(params, function (err, data) {
-        if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            res.send("Unable to add item. Error JSON:")
-        } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-           res.send("Added item:");
-        }
-    })
-});
-
 app.post('/getMember', function(req, res) {
-    Table = "MEMBER";
+    let Table = "MEMBER";
 
     let query = "";
 
-    if(req.body.user != null)
-    {
-        query += "#us = :username"
+    if(req.body.user != null) {
+        query += "#us = :username";
         console.log("There is a user");
 
-    var params = {
-        TableName : Table,
-        ProjectionExpression: "zip_code, email, first_name, last_name, password, #us, player_id",
-        FilterExpression:
-            query,
-        ExpressionAttributeNames: {
-            "#us": "username",
-        },
-        ExpressionAttributeValues: {
-            ":username" : req.body.user,
-        }
-    };
+        var params = {
+            TableName : Table,
+            ProjectionExpression: "zip_code, email, first_name, last_name, password, #us, player_id",
+            FilterExpression:
+                query,
+            ExpressionAttributeNames: {
+                "#us": "username",
+            },
+            ExpressionAttributeValues: {
+                ":username" : req.body.user,
+            }
+        };
 
-    docClient.scan(params, onScan);
+        scanner(res, params);
     }
     else{
-        res.send("{status: \"error\", message: \"username Required\" ");
-    }
-
-    function onScan(err, data) {
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (mem) {
-                console.log("player id = " + mem.player_id);
-            });
-            res.send(data);
-
-
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            }
-        }
+        res.send(JSON.stringify({status: "error", message: "username required"}));
     }
 
 });
 
 app.post('/getPosts', function(req, res) {
     console.log(req.body);
+    let Table;
+    let Expression;
     
 	if(req.body.post_type == 'lfm')
 	{
 		Table = "LFM_POST";
+		Expression = "#gt, DM, char_lvl, date, homebrew, novice, description, num_players, player_post_id, schedule";
 	}
 	else if(req.body.post_type == 'lfg')
 	{
 		Table = "LFG_POST";
+		Expression = "#gt, DM, date, description, skill_lvl, player_post_id, schedule";
 	}
 	else{
-		res.send("Invalid table type");
+		res.send(JSON.stringify({status: "error", message: "Invalid table type"}));
 	}
     var params = {
         TableName : Table,
-        ProjectionExpression: "#gt, char_lvl, description, DM, num_players, player_post_id, schedule",
+        ProjectionExpression: Expression,
         FilterExpression:
             "#gt = :game",
         ExpressionAttributeNames: {
@@ -171,7 +154,7 @@ app.post('/getPosts', function(req, res) {
 });
 
 app.post('/getInvite', function(req, res) {
-    Table = "INVITE";
+    let Table = "INVITE";
 
     var params = {
         TableName : Table,
@@ -190,7 +173,7 @@ app.post('/getInvite', function(req, res) {
 });
 
 app.post('/getGroup', function(req, res) {
-    Table = "GROUP";
+    let Table = "GROUP";
 
     var params = {
         TableName : Table,
@@ -209,7 +192,7 @@ app.post('/getGroup', function(req, res) {
 });
 
 app.post('/getApplication', function(req, res) {
-    Table = "GROUP";
+    let Table = "GROUP";
 
     var params = {
         TableName : Table,
@@ -227,6 +210,7 @@ app.post('/getApplication', function(req, res) {
     scanner(res,params);
 });
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -242,5 +226,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
